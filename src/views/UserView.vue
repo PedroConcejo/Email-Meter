@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1 class="p-5">{{userInfo}}</h1>
+    <h1 class="p-5">{{userFind}}</h1>
   </div>
 </template>
 <script>
@@ -16,8 +16,7 @@ export default {
     userInfo: Object
   },
   async created () {
-    console.log(this.userInfo.workouts.sort((a, b) => new Date(a.date).getTime() > new Date(b.date).getTime()))
-    console.log(this.userInfo)
+    this.userFind = this.userInfo
   }
 }
 </script>

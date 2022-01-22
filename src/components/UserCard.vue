@@ -3,7 +3,8 @@
     <div class="card-body">
       <h5 class="card-title">{{user.username}}</h5>
       <p class="card-text">Avg Steps: {{user.avg_steps}}</p>
-      <p class="card-text">Avg Steps: {{user.avg_last_month}}</p>
+      <p class="card-text">Avg Last Month Steps: {{user.avg_last_month}}</p>
+      <p class="card-text">Avg Last Week Steps: {{user.avg_last_week}}</p>
       <a @click='showUser()' class="btn btn-primary">Show</a>
     </div>
   </div>
