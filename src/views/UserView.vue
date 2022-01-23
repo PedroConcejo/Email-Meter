@@ -1,25 +1,36 @@
 <template>
   <div class="about">
-    <div class="toolbar">
-      <button class="m-3" v-for="(filter, idx) in filters" :key='idx' id="filter"
-          @click="changeFilter(filter)" :class="{active: filterBy===filter}"
-          >
-        {{filter}}
-      </button>
-    </div>
-    <div class="toolbar">
-      <button class="m-3" v-for="(filter, idx) in filters" :key='idx' id="filter"
-          @click="changeFilter(filter)" :class="{active: filterBy===filter}"
-          >
-        {{filter}}
-      </button>
-    </div>
-    <div class="toolbar">
-      <button class="m-3" v-for="(year, idx) in years" :key='idx' id="year"
+    <div class="btn-toolbar m-3 center" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="row align-items-center">
+        <span class="fw-bold">Chart Options: </span>
+      </div>
+      <div class="btn-group m-2" role="group" aria-label="First group">
+        <button type="button" class="btn btn-outline-primary" v-for="(filter, idx) in visual" :key='idx' id="filter"
+            @click="changeChart(filter)" :class="{active: defaultVisual===filter}"
+            >
+          {{filter}}
+        </button>
+      </div>
+      <div class="row align-items-center">
+        <span class="fw-bold">Info Options: </span>
+      </div>
+      <div class="btn-group m-2" role="group" aria-label="First group">
+        <button ctype="button" class="btn btn-outline-primary" v-for="(filter, idx) in filters" :key='idx' id="filter"
+            @click="changeFilter(filter)" :class="{active: filterBy===filter}"
+            >
+          {{filter}}
+        </button>
+      </div>
+      <div class="row align-items-center">
+        <span class="fw-bold">Year Options: </span>
+      </div>
+      <div class="btn-group m-2" role="group" aria-label="First group">
+        <button ctype="button" class="btn btn-outline-primary" v-for="(year, idx) in years" :key='idx' id="year"
           @click="updateData(year)" :class="{active: selection===year}"
           >
         {{year}}
       </button>
+      </div>
     </div>
     <div ref='chart' class='chart'>
     </div>
@@ -34,7 +45,8 @@ export default {
   data () {
     return {
       user: false,
-      visual: ['bar', 'heatmap'],
+      visual: ['Bar', 'Heatmap'],
+      defaultVisual: 'Bar',
       chart: null,
       years: [2022, 2021],
       selection: 2022,
@@ -52,7 +64,7 @@ export default {
           enabled: false
         },
         chart: {
-          type: 'heatmap',
+          type: 'bar',
           height: 350
         },
         series: [
@@ -63,6 +75,11 @@ export default {
         ],
         xaxis: {
           categories: []
+        },
+        yaxis: {
+          labels: {
+            offsetY: 0
+          }
         },
         plotOptions: {
           heatmap: {
@@ -173,12 +190,9 @@ export default {
       this.filterBy = filter
       this.options.xaxis.categories = this.arrayOfWeeks
       this.options.series[0].data = this.stepsByWeeks
-      console.log(this.options.series[0].data)
-      console.log(this.options.xaxis.categories)
       this.renderChart()
     },
     renderChart () {
-      console.log(this.filterBy)
       if (this.filterBy === 'By Months') {
         this.options.series[0].data = this.stepsByMonths
         this.options.xaxis.categories = this.arrayOfMonths
@@ -186,8 +200,13 @@ export default {
         this.options.series[0].data = this.stepsByWeeks
         this.options.xaxis.categories = this.arrayOfWeeks
       }
-      console.log(this.options.xaxis.categories)
       this.chart.updateOptions(this.options, true)
+    },
+    changeChart (filter) {
+      this.defaultVisual = filter
+      this.options.chart.type = filter.toLowerCase()
+      this.options.yaxis[0].labels.offsetY = 0
+      this.renderChart()
     }
   },
   props: {
@@ -201,32 +220,23 @@ export default {
     this.user = user
     this.parseWorkoutsByMonths()
     this.parseWorkoutsByWeeks()
-  },
-  mounted () {
     this.options.series[0].data = this.stepsByMonths
     this.options.xaxis.categories = this.arrayOfMonths
-    if (this.$refs.chart) {
-      this.chart = new ApexCharts(this.$refs.chart, this.options)
-      this.chart.render()
-    }
+    this.chart = new ApexCharts(this.$refs.chart, this.options)
+    this.chart.render()
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
 .chart {
   width: 100%;
 }
 .active {
-  background-color: red;
+  color: white;
+  background-color: #2e72f3;
+}
+.center {
+  justify-content: center !important;
 }
 </style>

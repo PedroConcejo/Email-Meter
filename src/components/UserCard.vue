@@ -1,12 +1,18 @@
 <template>
-  <div class="card border-primary m-2" style="width: 18rem;">
+  <div class="card border-secondary m-3" style="max-width: 18rem;">
+    <div class="fw-bold text-capitalize card-header bg-transparent border-secondary">{{user.username}}</div>
     <div class="card-body">
-      <h5 class="card-title">{{user.username}}</h5>
-      <p class="card-text">Avg Steps: {{user.avg_steps}}</p>
-      <p class="card-text">Avg Last Month Steps: {{user.avg_last_month}}</p>
-      <p class="card-text">Avg Last Week Steps: {{user.avg_last_week}}</p>
-      <a @click='showUser()' class="btn btn-primary">Show</a>
+      <p>
+        <span class="fw-bold">Avg Steps: </span><span>{{user.avg_steps}}</span>
+      </p>
+      <p>
+        <span class="fw-bold">Avg Last Month Steps: </span><span>{{user.avg_last_month}}</span>
+      </p>
+      <p>
+        <span class="fw-bold">Avg Last Week Steps: </span><span>{{user.avg_last_week}}</span>
+      </p>
     </div>
+    <a @click='showUser()' class="btn btn-primary mb-2">Show</a>
   </div>
 </template>
 

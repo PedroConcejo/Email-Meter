@@ -1,15 +1,19 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Ranking from '../views/Ranking.vue'
 import UserView from '../views/UserView.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/ranking',
+    name: 'Ranking',
+    component: Ranking
+  },
+  {
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: { name: 'Ranking' }
   },
   {
     path: '/:username',

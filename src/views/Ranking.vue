@@ -7,7 +7,7 @@
     </div>
   </div>
   <div v-else class="home">
-    <h1 class="p-5">Ranking</h1>
+    <h1 class="p-2">Ranking</h1>
     <FilterButtons  v-on:filterUsers='filterUsers' />
     <div  class="row justify-content-center">
       <UserCard v-for="user in usersParse" :key="user._id" :user="user" />
@@ -23,7 +23,7 @@ import FilterButtons from '@/components/FilterButtons.vue'
 import api from '../services/Api'
 
 export default {
-  name: 'Home',
+  name: 'Ranking',
   data () {
     return {
       users: '',

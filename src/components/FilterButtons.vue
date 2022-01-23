@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h3>Filter By:</h3>
+    <div class="form-check form-check-inline">
+      <h5>Filter By:</h5>
+    </div>
     <div class="form-check form-check-inline">
       <input @click="filterUsers('avg_steps')" class="form-check-input" type="radio" name="inlineRadioOptions" checked="" id="inlineRadio1">
       <label class="form-check-label" for="inlineRadio1">Avg Steps</label>
