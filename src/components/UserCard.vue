@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     showUser () {
-      this.$router.push({ name: 'UserView', params: { username: this.user.username, userInfo: this.user } })
+      this.$router.push({ name: 'UserView', params: { username: this.user.username } })
     }
   },
   created () {
